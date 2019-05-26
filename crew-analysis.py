@@ -2,19 +2,27 @@ import argparse
 import json
 
 def read_json_to_dict(file_name):
-    pass
+    print('Reading data from file: %s' % file_name)
+    # TODO
+
 
 def read_txt_to_list(file_name):
-    pass
+    print('Reading user-data from file: %s' % file_name)
+    # TODO
+
 
 def compute_overview(crew_data, item_data, my_crew):
-    pass
+    print('Computing analysis for OVERVIEW...')
+    # TODO
 
 def compute_best_stats(crew_data, item_data, my_crew):
-    pass
+    print('Computing analysis for BEST STATS...')
+    # TODO
+
 
 def compute_prestige_options(crew_data, item_data, my_crew):
-    pass
+    print('Computing analysis for PRESTIGE OPTIONS')
+    # TODO
 
 
 """
