@@ -3,11 +3,13 @@ import json
 
 def read_json_to_dict(file_name):
     print('Reading data from file: %s' % file_name)
+    print('\tDone!')
     # TODO
 
 
 def read_txt_to_list(file_name):
     print('Reading user-data from file: %s' % file_name)
+    print('\tDone!')
     # TODO
 
 
@@ -40,6 +42,7 @@ def main(args):
     crew_data = read_json_to_dict(args.crew_data_file)
     item_data = read_json_to_dict(args.item_data_file)
     my_crew = read_txt_to_list(args.my_crew_file)
+    print('\n')
 
     if (args.mode == 'overview'):
         compute_overview(crew_data, item_data, my_crew)
@@ -47,7 +50,7 @@ def main(args):
     if (args.mode == 'stats'):
         compute_best_stats(crew_data, item_data, my_crew)
         return
-    if (args.mode == 'prestige')
+    if (args.mode == 'prestige'):
         compute_prestige_options(crew_data, item_data, my_crew)
         return
 
