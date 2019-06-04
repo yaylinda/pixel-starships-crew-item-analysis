@@ -1,6 +1,7 @@
 import argparse
 import json
 from collections import OrderedDict
+import requests
 
 def read_json_to_dict(file_name):
     print('Reading data from file: %s' % file_name)
@@ -146,13 +147,36 @@ def compute_overview(crew_data, item_data, my_crew):
     print_stat_map('WEAPON', OrderedDict(sorted(weapon.items(), key=lambda t: t[0])))
 
 
-def compute_best_stats(crew_data, item_data, my_crew):
-    print('Computing analysis for BEST STATS...')
-    # TODO
-
-
 def compute_prestige_options(crew_data, item_data, my_crew):
     print('Computing analysis for PRESTIGE OPTIONS')
+
+    my_crew_ids = {}
+    for c in my_crew:
+        my_crew_ids[c['id']] = c['name']
+
+    legendaries = []
+    for c in crew_data.keys():
+        if crew_data[c]['rarity'] == 'legendary':
+            legendaries.append({"id": crew_data[c]['id'], "name": crew_data[c]['name']})
+
+    combos = []
+    for legend in legendaries:
+        url = 'http://www.pixyship.com/api/prestige/' + str(legend['id'])
+        print('getting prestige info for %s from %s' % (legend['name'], url))
+        response = requests.get(url)
+        prestige_data = response.json()['data']['to'] # map of id:[id]
+        for id in prestige_data.keys():
+            if (int(id) in my_crew_ids):
+                for with_id in prestige_data[id]:
+                    if (with_id in my_crew_ids):
+                        combos.append({"id1": int(id), "id2": with_id, "result": legend['name']})
+
+    for combo in combos:
+        print('%s + %s = %s' % (my_crew_ids[combo['id1']], my_crew_ids[combo['id2']], combo['result']))
+
+
+def compute_best_stats(crew_data, item_data, my_crew):
+    print('Computing analysis for BEST STATS...')
     # TODO
 
 
